@@ -8,21 +8,21 @@
 
 #import "ViewController.h"
 #import <math.h>
+#import "Button.h"
 
 @interface ViewController ()
 
 @property (nonatomic, strong) UIButton *centerBtn;
-@property (nonatomic, strong) UIButton *aBtn;
-@property (nonatomic, strong) UIButton *bBtn;
-@property (nonatomic, strong) UIButton *cBtn;
-@property (nonatomic, strong) UIButton *dBtn;
-@property (nonatomic, strong) UIButton *eBtn;
+@property (nonatomic, strong) Button *aBtn;
+@property (nonatomic, strong) Button *bBtn;
+@property (nonatomic, strong) Button *cBtn;
+@property (nonatomic, strong) Button *dBtn;
+@property (nonatomic, strong) Button *eBtn;
 @property (nonatomic, strong) UIView *darkView;
 
 @property (nonatomic, assign) CGPoint centerPoint;
 
 @property (nonatomic) BOOL boom;
-@property (nonatomic) BOOL highlight;
 
 @end
 
@@ -32,7 +32,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     _boom = NO;
-    _highlight = NO;
     
     UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-150, 100, 300, 60)];
     text.text = @"Core Animation Sample";
@@ -52,7 +51,7 @@
     _centerBtn.layer.position = _centerPoint;
     [_centerBtn addTarget:self action:@selector(didClickCenterBtn) forControlEvents:UIControlEventTouchUpInside];
 
-    _aBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    _aBtn = [Button buttonWithType:UIButtonTypeSystem];
     _aBtn.tag = 1;
     [_aBtn setImage:[UIImage imageNamed:@"account"] forState:UIControlStateNormal];
     _aBtn.backgroundColor = [UIColor colorWithRed:0.80 green:0.80 blue:0.80 alpha:1.00];
@@ -64,7 +63,7 @@
     _aBtn.layer.position = _centerPoint;
     [_aBtn addTarget:self action:@selector(didClickBtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    _bBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    _bBtn = [Button buttonWithType:UIButtonTypeSystem];
     _bBtn.tag = 2;
     [_bBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
     _bBtn.backgroundColor = [UIColor colorWithRed:0.80 green:0.80 blue:0.80 alpha:1.00];
@@ -76,7 +75,7 @@
     _bBtn.layer.position = _centerPoint;
     [_bBtn addTarget:self action:@selector(didClickBtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    _cBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    _cBtn = [Button buttonWithType:UIButtonTypeSystem];
     _cBtn.tag = 3;
     [_cBtn setImage:[UIImage imageNamed:@"comments"] forState:UIControlStateNormal];
     _cBtn.backgroundColor = [UIColor colorWithRed:0.80 green:0.80 blue:0.80 alpha:1.00];
@@ -88,7 +87,7 @@
     _cBtn.layer.position = _centerPoint;
     [_cBtn addTarget:self action:@selector(didClickBtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    _dBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    _dBtn = [Button buttonWithType:UIButtonTypeSystem];
     _dBtn.tag = 4;
     [_dBtn setImage:[UIImage imageNamed:@"email"] forState:UIControlStateNormal];
     _dBtn.backgroundColor = [UIColor colorWithRed:0.80 green:0.80 blue:0.80 alpha:1.00];
@@ -100,7 +99,7 @@
     _dBtn.layer.position = _centerPoint;
     [_dBtn addTarget:self action:@selector(didClickBtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    _eBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    _eBtn = [Button buttonWithType:UIButtonTypeSystem];
     _eBtn.tag = 5;
     [_eBtn setImage:[UIImage imageNamed:@"set"] forState:UIControlStateNormal];
     _eBtn.backgroundColor = [UIColor colorWithRed:0.80 green:0.80 blue:0.80 alpha:1.00];
@@ -120,7 +119,7 @@
     [self.view insertSubview:_darkView belowSubview:_aBtn];
 }
 
-- (CGPoint)calculateEndPointWithBtn:(UIButton *)btn {
+- (CGPoint)calculateEndPointWithBtn:(Button *)btn {
     NSInteger radius = 150;
     return CGPointMake(_centerPoint.x - radius*cosf(btn.tag*M_PI/6), _centerPoint.y - radius*sinf(btn.tag*M_PI/6));
 }
@@ -193,7 +192,7 @@
     }
 }
 
-- (CABasicAnimation *)moveOutWithBtn:(UIButton *)btn {
+- (CABasicAnimation *)moveOutWithBtn:(Button *)btn {
     CABasicAnimation *moveOut = [CABasicAnimation animationWithKeyPath:@"position"];
     moveOut.fromValue = [NSValue valueWithCGPoint:_centerPoint];
     moveOut.toValue = [NSValue valueWithCGPoint:[self calculateEndPointWithBtn:btn]];
@@ -202,7 +201,7 @@
     return moveOut;
 }
 
-- (CAAnimationGroup *)boomWithBtn:(UIButton *)btn {
+- (CAAnimationGroup *)boomWithBtn:(Button *)btn {
     CABasicAnimation *rotateWhenBoom = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotateWhenBoom.fromValue = @0;
     rotateWhenBoom.toValue = @(M_PI*2.0);
@@ -217,7 +216,7 @@
     return boom;
 }
 
-- (CABasicAnimation *)moveInWithBtn:(UIButton *)btn {
+- (CABasicAnimation *)moveInWithBtn:(Button *)btn {
     CABasicAnimation *moveIn = [CABasicAnimation animationWithKeyPath:@"position"];
     moveIn.toValue = [NSValue valueWithCGPoint:_centerPoint];
     moveIn.fromValue = [NSValue valueWithCGPoint:[self calculateEndPointWithBtn:btn]];
@@ -226,7 +225,7 @@
     return moveIn;
 }
 
-- (CAAnimationGroup *)foldWithBtn:(UIButton *)btn {
+- (CAAnimationGroup *)foldWithBtn:(Button *)btn {
     CABasicAnimation *rotateWhenFold = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotateWhenFold.fromValue = @0;
     rotateWhenFold.toValue = @(-M_PI*2.0);
@@ -241,12 +240,12 @@
     return fold;
 }
 
-- (void)didClickBtn:(UIButton *)btn {
-    if(!_highlight) {
-        _highlight = YES;
+- (void)didClickBtn:(Button *)btn {
+    if(!btn.highlight) {
+        btn.highlight = YES;
         [self.view viewWithTag:btn.tag].backgroundColor = [UIColor colorWithRed:0.69 green:0.96 blue:0.40 alpha:1.00];
     } else {
-        _highlight = NO;
+        btn.highlight = NO;
         [self.view viewWithTag:btn.tag].backgroundColor = [UIColor colorWithRed:0.80 green:0.80 blue:0.80 alpha:1.00];
     }
 }

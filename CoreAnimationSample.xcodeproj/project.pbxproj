@@ -18,6 +18,7 @@
 		E221F89C1FBC8A7600F70CFF /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = E221F89B1FBC8A7600F70CFF /* search.png */; };
 		E221F89E1FBC8A8E00F70CFF /* comments.png in Resources */ = {isa = PBXBuildFile; fileRef = E221F89D1FBC8A8E00F70CFF /* comments.png */; };
 		E221F8A01FBC8AC000F70CFF /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = E221F89F1FBC8ABF00F70CFF /* email.png */; };
+		E252DEF51FBE699100818D9E /* Button.m in Sources */ = {isa = PBXBuildFile; fileRef = E252DEF41FBE699100818D9E /* Button.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 		E221F89B1FBC8A7600F70CFF /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		E221F89D1FBC8A8E00F70CFF /* comments.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comments.png; sourceTree = "<group>"; };
 		E221F89F1FBC8ABF00F70CFF /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
+		E252DEF31FBE699100818D9E /* Button.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
+		E252DEF41FBE699100818D9E /* Button.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Button.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +75,8 @@
 				E221F87F1FBC52F800F70CFF /* AppDelegate.m */,
 				E221F8811FBC52F800F70CFF /* ViewController.h */,
 				E221F8821FBC52F800F70CFF /* ViewController.m */,
+				E252DEF31FBE699100818D9E /* Button.h */,
+				E252DEF41FBE699100818D9E /* Button.m */,
 				E221F8871FBC52F800F70CFF /* Assets.xcassets */,
 				E221F8891FBC52F800F70CFF /* LaunchScreen.storyboard */,
 				E221F88C1FBC52F800F70CFF /* Info.plist */,
@@ -173,6 +178,7 @@
 				E221F8831FBC52F800F70CFF /* ViewController.m in Sources */,
 				E221F88E1FBC52F800F70CFF /* main.m in Sources */,
 				E221F8801FBC52F800F70CFF /* AppDelegate.m in Sources */,
+				E252DEF51FBE699100818D9E /* Button.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
