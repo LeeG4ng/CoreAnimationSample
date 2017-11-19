@@ -124,6 +124,11 @@
     return CGPointMake(_centerPoint.x - radius*cosf(btn.tag*M_PI/6), _centerPoint.y - radius*sinf(btn.tag*M_PI/6));
 }
 
+- (CGPoint)calculateFarPointWithBtn:(Button *)btn {
+    NSInteger radius = 160;
+    return CGPointMake(_centerPoint.x - radius*cosf(btn.tag*M_PI/6), _centerPoint.y - radius*sinf(btn.tag*M_PI/6));
+}
+
 - (void)didClickCenterBtn {
     if(_boom) {
         _boom = NO;
@@ -192,12 +197,20 @@
     }
 }
 
-- (CABasicAnimation *)moveOutWithBtn:(Button *)btn {
-    CABasicAnimation *moveOut = [CABasicAnimation animationWithKeyPath:@"position"];
-    moveOut.fromValue = [NSValue valueWithCGPoint:_centerPoint];
-    moveOut.toValue = [NSValue valueWithCGPoint:[self calculateEndPointWithBtn:btn]];
+//- (CABasicAnimation *)moveOutWithBtn:(Button *)btn {
+//    CABasicAnimation *moveOut = [CABasicAnimation animationWithKeyPath:@"position"];
+//    moveOut.fromValue = [NSValue valueWithCGPoint:_centerPoint];
+//    moveOut.toValue = [NSValue valueWithCGPoint:[self calculateEndPointWithBtn:btn]];
+//    moveOut.duration = 0.2f;
+//    moveOut.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+//    return moveOut;
+//}
+
+- (CAKeyframeAnimation *)moveOutWithBtn:(Button *)btn {
+    CAKeyframeAnimation *moveOut = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    moveOut.values = @[[NSValue valueWithCGPoint:_centerPoint], [NSValue valueWithCGPoint:[self calculateFarPointWithBtn:btn]], [NSValue valueWithCGPoint:[self calculateEndPointWithBtn:btn]]];
+    moveOut.keyTimes = @[@0.0, @0.8, @1.0];
     moveOut.duration = 0.2f;
-    moveOut.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     return moveOut;
 }
 
